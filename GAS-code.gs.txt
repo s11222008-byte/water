@@ -1,0 +1,17 @@
+// 請改成您的「浮萍水槽 AR」GitHub Pages 網址。
+// 此處必須是網頁網址，不是 GLB 下載網址。
+const AR_URL =
+  'https://tnyenningsu.github.io/ar/duckweed/';
+
+function doGet() {
+  const template = HtmlService.createTemplateFromFile('Index');
+
+  template.arUrl = AR_URL;
+
+  return template.evaluate()
+    .setTitle('浮萍與水位：AR 觀察活動')
+    .addMetaTag(
+      'viewport',
+      'width=device-width, initial-scale=1'
+    );
+}

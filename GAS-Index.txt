@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <base target="_blank">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #edf5f1;
+      color: #244238;
+      font-family:
+        "Microsoft JhengHei",
+        "PingFang TC",
+        sans-serif;
+    }
+
+    main {
+      max-width: 680px;
+      margin: 20px auto;
+    }
+
+    .card {
+      padding: 26px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 6px 24px #174b3d12;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 30px;
+      background: #e1f1e9;
+      color: #176b57;
+      font-size: 14px;
+    }
+
+    h1 {
+      margin: 14px 0;
+      font-size: 28px;
+      line-height: 1.4;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 23px;
+    }
+
+    p,
+    li {
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    ol {
+      padding-left: 25px;
+    }
+
+    .steps {
+      margin: 18px 0;
+      color: #64746c;
+      font-size: 14px;
+    }
+
+    .box {
+      margin: 18px 0;
+      padding: 16px;
+      border-radius: 12px;
+      background: #f1f7f4;
+    }
+
+    .note {
+      font-size: 14px;
+      color: #65746d;
+    }
+
+    button,
+    .button {
+      display: inline-block;
+      padding: 14px 20px;
+      border: 0;
+      border-radius: 11px;
+      background: #176b57;
+      color: white;
+      font-family: inherit;
+      font-size: 17px;
+      line-height: 1.4;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    button:disabled {
+      background: #8a9890;
+      cursor: default;
+    }
+
+    .secondary {
+      background: #e8efeb;
+      color: #244238;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 12px 0;
+      padding: 16px;
+      border: 1px solid #d6e3db;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .option:has(input:checked) {
+      border-color: #176b57;
+      background: #edf7f1;
+    }
+
+    input[type="radio"] {
+      flex-shrink: 0;
+      margin-top: 6px;
+      accent-color: #176b57;
+      width: 18px;
+      height: 18px;
+    }
+
+    #feedback {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 12px;
+      line-height: 1.8;
+      font-size: 17px;
+    }
+
+    #feedback.correct {
+      background: #e1f2e6;
+      color: #18582f;
+    }
+
+    #feedback.retry {
+      background: #fff2d9;
+      color: #735015;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 12px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 25px;
+      }
+
+      .actions > * {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="tag">自然科學・水生植物</div>
+
+    <h1>浮萍會跟著水位移動嗎？</h1>
+
+    <p class="steps" id="progress">
+      步驟 1／3：認識任務
+    </p>
+
+    <!-- 第一階段：任務說明 -->
+    <section id="intro" class="card">
+      <h2>今天的觀察任務</h2>
+
+      <p>
+        透過 AR 觀察一個放有浮萍的立體水槽，
+        調整水位，看看浮萍的位置如何改變。
+      </p>
+
+      <div class="box">
+        <strong>請特別留意：</strong>
+
+        <ol>
+          <li>水位升高時，浮萍的位置如何改變？</li>
+          <li>水位降低時，浮萍的位置如何改變？</li>
+          <li>浮萍的根有沒有固定在水槽底部？</li>
+        </ol>
+      </div>
+
+      <p class="note">
+        請先準備老師指定的圖卡，
+        可使用印出的圖片，或在另一台裝置上顯示圖片。
+      </p>
+
+      <div class="actions">
+        <button id="toAR" type="button">
+          開始觀察
+        </button>
+      </div>
+    </section>
+
+    <!-- 第二階段：開啟 AR -->
+    <section id="arTask" class="card" hidden>
+      <h2>操作 AR 水槽</h2>
+
+      <ol>
+        <li>點選下方「開啟 AR 水槽」。</li>
+        <li>在新分頁啟動鏡頭，並允許使用相機。</li>
+        <li>將鏡頭對準老師指定的完整圖卡。</li>
+        <li>依序操作低水位、中水位與高水位。</li>
+        <li>按「換角度」，觀察浮萍與下垂的根。</li>
+      </ol>
+
+      <div class="box">
+        AR 會在另一個分頁開啟。
+        <strong>
+          觀察完成後，請切換回目前這個分頁作答。
+        </strong>
+      </div>
+
+      <p class="note">
+        浮萍尺寸為教學放大示意；
+        水位升降為程式模擬。
+        滑桿百分比表示可調整範圍，
+        不是水槽容積百分比。
+      </p>
+
+      <div class="actions">
+        <a
+          id="openAR"
+          class="button"
+          href="<?= arUrl ?>"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          開啟 AR 水槽
+        </a>
+
+        <button
+          id="toQuiz"
+          class="secondary"
+          type="button"
+          disabled
+        >
+          我已完成觀察，開始作答
+        </button>
+      </div>
+
+      <p id="arReminder" class="note">
+        請先開啟 AR，完成觀察後再作答。
+      </p>
+    </section>
+
+    <!-- 第三階段：觀察題 -->
+    <section id="quiz" class="card" hidden>
+      <h2>你觀察到了什麼？</h2>
+
+      <p>
+        改變水槽水位時，
+        下列哪一項最符合浮萍的表現？
+      </p>
+
+      <form id="quizForm">
+        <label class="option">
+          <input
+            type="radio"
+            name="answer"
+            value="A"
+            required
+          >
+          <span>
+            A. 浮萍留在原本的高度，
+            不會隨水位改變。
+          </span>
+        </label>
+
+        <label class="option">
+          <input
+            type="radio"
+            name="answer"
+            value="B"
+            required
+          >
+          <span>
+            B. 浮萍隨水面一起升降，
+            根垂在水中，沒有固定在槽底。
+          </span>
+        </label>
+
+        <label class="option">
+          <input
+            type="radio"
+            name="answer"
+            value="C"
+            required
+          >
+          <span>
+            C. 水位越高，
+            浮萍就越往水槽底部下沉。
+          </span>
+        </label>
+
+        <div class="actions">
+          <button type="submit">
+            送出答案
+          </button>
+
+          <button
+            id="backToAR"
+            class="secondary"
+            type="button"
+          >
+            返回 AR 操作說明
+          </button>
+        </div>
+      </form>
+
+      <div
+        id="feedback"
+        role="status"
+        aria-live="polite"
+        hidden
+      ></div>
+
+      <div id="conclusion" class="box" hidden>
+        <strong>觀察重點</strong>
+
+        <p>
+          浮萍會隨水面升降，保持在水面附近，
+          根垂入水中，沒有固定在水底土壤。
+          這呈現了漂浮性水生植物的特徵。
+        </p>
+
+        <p class="note">
+          這個 AR 用來呈現預先設定的植物特徵；
+          也可以搭配實際浮萍與水槽觀察，
+          比較真實植物的表現。
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const intro = document.querySelector('#intro');
+    const arTask = document.querySelector('#arTask');
+    const quiz = document.querySelector('#quiz');
+
+    const progress = document.querySelector('#progress');
+    const toQuiz = document.querySelector('#toQuiz');
+
+    const feedback = document.querySelector('#feedback');
+    const conclusion = document.querySelector('#conclusion');
+
+    function showStep(step) {
+      intro.hidden = step !== 1;
+      arTask.hidden = step !== 2;
+      quiz.hidden = step !== 3;
+
+      const titles = {
+        1: '認識任務',
+        2: '操作 AR',
+        3: '完成觀察題'
+      };
+
+      progress.textContent =
+        `步驟 ${step}／3：${titles[step]}`;
+
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    document.querySelector('#toAR')
+      .addEventListener('click', () => {
+        showStep(2);
+      });
+
+    document.querySelector('#openAR')
+      .addEventListener('click', () => {
+        // 僅確認學生點過 AR 連結。
+        // GAS 無法據此確認學生實際操作了哪些水位。
+        toQuiz.disabled = false;
+
+        document.querySelector('#arReminder')
+          .textContent =
+            '完成 AR 觀察後，切換回這個分頁，' +
+            '再點「我已完成觀察，開始作答」。';
+      });
+
+    toQuiz.addEventListener('click', () => {
+      showStep(3);
+    });
+
+    document.querySelector('#backToAR')
+      .addEventListener('click', () => {
+        showStep(2);
+      });
+
+    document.querySelectorAll(
+      'input[name="answer"]'
+    ).forEach(input => {
+      input.addEventListener('change', () => {
+        feedback.hidden = true;
+        conclusion.hidden = true;
+      });
+    });
+
+    document.querySelector('#quizForm')
+      .addEventListener('submit', event => {
+        event.preventDefault();
+
+        const selected = document.querySelector(
+          'input[name="answer"]:checked'
+        );
+
+        if (!selected) {
+          return;
+        }
+
+        feedback.hidden = false;
+
+        if (selected.value === 'B') {
+          feedback.className = 'correct';
+
+          feedback.textContent =
+            '答對了！浮萍隨著水面一起升降，' +
+            '根沒有固定在水槽底部。';
+
+          conclusion.hidden = false;
+
+        } else {
+          feedback.className = 'retry';
+
+          feedback.textContent =
+            '再觀察一次：先把水位調低，再調高。' +
+            '浮萍是留在原高度，還是一直跟著水面移動？';
+
+          conclusion.hidden = true;
+        }
+      });
+  </script>
+</body>
+</html>
